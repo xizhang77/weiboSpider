@@ -10,11 +10,9 @@
 私心放一张妹妹照片！！！我妹妹真的超级好！！！希望大家有机会可以了解一下！！！入股不亏！！！
 ![Image of Meiqi Meng](./images/meiqi.JPG)
 
-## 数据是如何加载的
+## 数据加载
 
 首先，整个程序是通过模拟手机端访问http://m.weibo.com 来请求数据的，因此首先要找到要访问的主页的网址。以火箭少女101官博为例，
-![官博网址](./images/rocketgirls.PNG)
-可以看到，每一个用户都有指定的ID，只要替换params中的value即可访问想要的用户
 ```
 def get_user_info(page):
     params = [
@@ -24,3 +22,11 @@ def get_user_info(page):
         ('page', page)
     ]
 ```
+### 用户
+可以看到，每一个用户都有指定的ID，在程序中只要替换params的value即可访问相应的用户。
+![官博网址](./images/rocketgirls.png)
+
+### 微博
+而params中的containerid，代表的是该用户发布的每一条微博的专属id。
+![最新微博](./images/details.png)
+
