@@ -28,5 +28,8 @@ def get_user_info(page):
 
 ### 微博
 而params中的containerid，代表的是该用户发布的每一条微博的专属id。
-![最新微博](./images/details.png)
 
+### 评论
+目前微博的评论有两种排序方式，一个是时间，一个是热度（热度的排序机理我不是很了解，目前知道的情况是，点赞越多排的越高？？），而网页版微博默认显示热度排序，及hotflow。在chrome的development tool功能下可捕捉到如图所示的请求，其中
+
+![最新微博](./images/details.png)
