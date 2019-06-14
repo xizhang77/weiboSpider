@@ -23,13 +23,28 @@ def get_user_info(page):
     ]
 ```
 ### 用户
-可以看到，每一个用户都有指定的ID，在程序中只要替换params的value即可访问相应的用户。
+可以看到，每一个用户都有指定的ID，在程序中只要替换params的value和containerid即可访问相应的用户。
 ![官博网址](./images/rocketgirls.png)
 
 ### 微博
-而params中的containerid，代表的是该用户发布的每一条微博的专属id。
+在chrome的development tool功能下可捕捉到如图所示的请求。
+
+![RequestURL](./images/details.png)
+
+```
+getIndex?type=uid&value=6576856192&containerid=1076036576856192
+```
+
+图片里高亮的Link即为Request URL，里面包含了该微博用户目前发表前10条微博的所有信息（如果需要抓取更多微博，调整params里的变量page即可，默认0）。Jason数据结构如下图所示
+
+![Structure](./images/structure.png)
+
 
 ### 评论
-目前微博的评论有两种排序方式，一个是时间，一个是热度（热度的排序机理我不是很了解，目前知道的情况是，点赞越多排的越高？？），而网页版微博默认显示热度排序，及hotflow。在chrome的development tool功能下可捕捉到如图所示的请求，其中
+目前微博的评论有两种排序方式，一个是时间，一个是热度（热度的排序机理我不是很了解，目前知道的情况是，点赞越多排的越高？？），而网页版微博默认显示热度排序，及hotflow。在chrome的development tool功能下可捕捉到如图所示的请求。
+```
+getIndex?type=uid&value=6576856192&containerid=1076036576856192
+```
+图片里高亮的Link即为Request URL，里面包含了这个
 
 ![最新微博](./images/details.png)
