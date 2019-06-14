@@ -77,7 +77,6 @@ def get_page_info(page_id, max_id):
         ]
 
     url = 'http://' + host + '/comments/hotflow?' + urlencode(params)
-    print url
     try:
         response = requests.get(url, headers=headers)
 
