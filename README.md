@@ -8,6 +8,19 @@
 * [python爬虫抓取新浪微博数据](https://www.jianshu.com/p/c4ef31a0ea8c)
 
 私心放一张妹妹照片！！！我妹妹真的超级好！！！希望大家有机会可以了解一下！！！入股不亏！！！
-![Image of MeiQi Meng](./images/meiqi.JPG)
+![Image of Meiqi Meng](./images/meiqi.JPG)
 
-## 
+## 数据是如何加载的
+
+首先，整个程序是通过模拟手机端访问http://m.weibo.com 来请求数据的，因此首先要找到要访问的主页的网址。以火箭少女101官博为例，
+![官博网址](./images/rocketgirls.PNG)
+可以看到，每一个用户都有指定的ID，只要替换params中的value即可访问想要的用户
+```
+def get_user_info(page):
+    params = [
+        ('type', 'uid'),
+        ('value', 6576856192),
+        ('containerid', 1076036576856192),
+        ('page', page)
+    ]
+```
