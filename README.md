@@ -8,6 +8,6 @@
 * [python爬虫抓取新浪微博数据](https://www.jianshu.com/p/c4ef31a0ea8c)
 
 私心放一张妹妹照片！！！我妹妹真的超级好！！！希望大家有机会可以了解一下！！！入股不亏！！！
-![Image of MeiQi Meng](https://github.com/xizhang77/weiboSpider/images/meiqi.JPG)
+![Image of MeiQi Meng](./images/meiqi.JPG)
 
 ## 
