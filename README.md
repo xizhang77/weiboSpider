@@ -31,9 +31,6 @@ def get_user_info(page):
 
 ![RequestURL](./images/details.png)
 
-```
-getIndex?type=uid&value=6576856192&containerid=1076036576856192
-```
 
 图片里高亮的Link即为Request URL，里面包含了该微博用户目前发表前10条微博的所有信息（如果需要抓取更多微博，调整params里的变量page即可，默认0）。Jason数据结构如下图所示
 
