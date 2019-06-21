@@ -41,7 +41,7 @@ def get_user_info(page):
         print('抓取错误', e.args)
 
 
-# Get the basic info for each mblog
+# Get the basic info for each post
 def parse_page(json):
     items = json.get('data').get('cards')
     for item in items:
@@ -100,9 +100,6 @@ def get_comments(json):
         }
         yield data
 
-max_id = None
-
-
 # Convert dict's keys & values from unicode to str
 # Refer: https://stackoverflow.com/questions/1254454/fastest-way-to-convert-a-dicts-keys-values-from-unicode-to-str/1254499#1254499
 def convert(data):
@@ -116,6 +113,7 @@ def convert(data):
         return data
 
 if __name__ == '__main__':
+
     f = open('test.csv', 'w') 
     f.write(codecs.BOM_UTF8)
     columnName = ['id', 'attitudes_count', 'comments_count', 'reposts_count', 'content'] 
