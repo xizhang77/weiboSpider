@@ -4,6 +4,8 @@
 # reload(sys)
 # sys.setdefaultencoding('utf-8')
 
+import csv, collections
+import codecs
 import requests
 from pyquery import PyQuery as pq
 from urllib import urlencode, unquote
@@ -20,7 +22,7 @@ headers = {
 }
 
 
-# Get the info of user
+# Get user's information
 def get_user_info(page):
     params = [
         ('type', 'uid'),
@@ -40,11 +42,6 @@ def get_user_info(page):
 
 
 # Get the basic info for each mblog
-# 目前没有解决的问题(04/29/2019)：text中的文本为Unicode编码，暂时无法显示成中文（单独print text时可解码）
-# 暂时保存几个主要人员的Unicode编码用于信息提取
-# 孟美岐： \u5b5f\u7f8e\u5c90
-# 吴宣仪： \u5434\u5ba3\u4eea
-# 杨超越： \u6768\u8d85\u8d8a
 def parse_page(json):
     items = json.get('data').get('cards')
     for item in items:
@@ -55,13 +52,13 @@ def parse_page(json):
             data = {
                 'id': item.get('id'),
                 'text': content,
-                'attitudes': item.get('attitudes_count'),
-                'comments': item.get('comments_count'),
-                'reposts': item.get('reposts_count')
+                '# of attitudes': item.get('attitudes_count'),
+                '# of comments': item.get('comments_count'),
+                '# of reposts': item.get('reposts_count')
             }
             yield data
 
-
+# Get the post's information
 def get_page_info(page_id, max_id):
     if max_id != None:
         params = [
@@ -105,11 +102,33 @@ def get_comments(json):
 
 max_id = None
 
+
+# Convert dict's keys & values from unicode to str
+# Refer: https://stackoverflow.com/questions/1254454/fastest-way-to-convert-a-dicts-keys-values-from-unicode-to-str/1254499#1254499
+def convert(data):
+    if isinstance(data, basestring):
+        return data.encode("utf-8")
+    elif isinstance(data, collections.Mapping):
+        return dict(map(convert, data.iteritems()))
+    elif isinstance(data, collections.Iterable):
+        return type(data)(map(convert, data))
+    else:
+        return data
+
 if __name__ == '__main__':
+    f = open('test.csv', 'w') 
+    f.write(codecs.BOM_UTF8)
+    columnName = ['id', 'attitudes_count', 'comments_count', 'reposts_count', 'content'] 
+    writer = csv.DictWriter(f, fieldnames=columnName)
+    writer.writeheader()
     for page in range(1, 2): 
         json = get_user_info(page)
         results = parse_page(json)
         for result in results:
+            writer.writerow( convert(result) )
+
+            # 写于6/21/19: 目前comments的抓取仍然有问题
+            '''
             max_id = None
             for i in range(2):
                 print result['id'], max_id, i
@@ -117,6 +136,4 @@ if __name__ == '__main__':
                 comments = get_comments( json_page )
                 for comment in comments:
                     print comment
-
-    # results = results.drop_duplicates()
-    print "中文测试"
+            '''
